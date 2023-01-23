@@ -23,3 +23,8 @@ source ./venv/bin/activate
 ## Usage
 
 `./get_leaderboard_json.sh`
+
+This will print the output to the console as well as send the payload to slack.
+
+By default, the code will return only the top 10 ranks. This can be adjusted by
+changing the LIMI constant in parse_leaderboard.py.

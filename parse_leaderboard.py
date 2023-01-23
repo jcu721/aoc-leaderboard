@@ -1,17 +1,20 @@
 import json
 import sys
 
+# limit results to the top 10 rankings
+LIMIT = 10
+
 
 def parse_json(filename):
     # read file
     with open(filename, 'r') as json_file:
         data = json_file.read()
 
-    # parse file and get top 10
+    # parse file and get top results
     json_data = json.loads(data)
     scores = [(user["local_score"], user['name']) for user in json_data["members"].values()]
     scores.sort(reverse=True)
-    top_scores = scores[:10]
+    top_scores = scores[:LIMIT]
 
     output = "Rank|Score|Stars-4-5-6-7-8-9-0-1-2-3-4-5-6-7-8-9-0-1-2-3-4-5-|Name---------------------|"
     print(output)
@@ -19,6 +22,7 @@ def parse_json(filename):
         member_record = [member for member in json_data["members"].values() if member["name"] == score_tuple[1]][0]
         output += "\n" + format_output(member_record, rank + 1)
 
+    # write summary data to file
     with open('parsed_data.json', 'w') as parsed_file:
         output = "```" + output + "```"
         parsed_file.write(json.dumps({"text": output}))
