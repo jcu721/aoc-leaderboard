@@ -30,21 +30,20 @@ def parse_json(filename):
 
 def format_output(member_record, rank):
     padded_score = f"{member_record['local_score']}     "[:5]
-    stars = []
+    stars = ""
     for day in range(1, 26):
-        if member_record['completion_day_level'].get(str(day), {}).get("1"):
-            stars.insert((day-1)*2, "*")
-        else:
-            stars.insert((day-1)*2, ' ')
         if member_record['completion_day_level'].get(str(day), {}).get("2"):
-            stars.insert(day*2, "*")
+            stars += "**"
+        elif member_record['completion_day_level'].get(str(day), {}).get("1"):
+            stars += "* "
         else:
-            stars.insert(day*2, ' ')
+            # no stars awarded for this day
+            stars += "  "
 
     output_string = "{0}   |{1}|{2}|{3}".format(
         rank,
         padded_score,
-        "".join(stars),
+        stars,
         member_record['name']
     )
     print(output_string)
