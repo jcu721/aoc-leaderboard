@@ -40,8 +40,8 @@ def format_output(member_record, rank):
             # no stars awarded for this day
             stars += "  "
 
-    output_string = "{0}   |{1}|{2}|{3}".format(
-        rank,
+    output_string = "{0}|{1}|{2}|{3}".format(
+        f"{rank}   "[:4],
         padded_score,
         stars,
         member_record['name']
